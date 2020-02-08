@@ -1,13 +1,29 @@
 <%- include ("partials/header") %>
+<style>
+	body{
+		background-image: url("https://cdn.wallpapersafari.com/87/32/fYqaLw.jpg");
+		background-size: cover;
+	}
+	#main{
+		position: fixed; /* or absolute */
+  		top: 35%;
+  		left: 40%;
+		text-align: center; 
+	}
 
-<h1>
-	Home Page!
-</h1>
+</style>
+<div  class="container">
+	<div  id="main" class="col-12">
+		<h1>
+			<em>Home Page!</em>
+		</h1>
 
-<P>
-	Welcome to OSU RENTING HOME!
-</P>
+		<P>
+			<strong>Welcome to OSU RENTING HOME!</strong>
+		</P>
 
-<a href="/campgrounds">View All Apartments</a>
+		<a href="/campgrounds"><strong>View All Apartments</strong></a>
+	</div>
+</div> 
 
 <%- include ("partials/footer") %>
