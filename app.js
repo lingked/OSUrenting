@@ -8,12 +8,12 @@ var express = require("express"),
 	localStrategy = require("passport-local"),
 	Campground = require("./models/campground"),
 	Comment = require("./models/comment"),
-	User = require("./models/user"),
+	User = require("./models/user")
 	//seedDB = require("./seeds")
 
 // require routes
 
-var commentRoutes = require("./routes/comments"),
+var	commentRoutes = require("./routes/comments"),
 	campgroundRoutes = require("./routes/campgrounds"),
 	indexRoutes = require("./routes/index")
 	
@@ -22,7 +22,7 @@ var commentRoutes = require("./routes/comments"),
 mongoose.connect("mongodb+srv://lingkai:lingkai@ouschome-vopln.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true});
 //MongoClient.connect({useNewUrlParser: true});
 
-app.use(bodyParser.urlencoded({extended: true}));git 
+app.use(bodyParser.urlencoded({extended: true}));
 
 //console.log(__dirname+"/public");
 app.set("view engine","ejs");
