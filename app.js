@@ -9,7 +9,7 @@ var express = require("express"),
 	Campground = require("./models/campground"),
 	Comment = require("./models/comment"),
 	User = require("./models/user"),
-	seedDB = require("./seeds")
+	//seedDB = require("./seeds")
 
 // require routes
 
@@ -22,7 +22,7 @@ var commentRoutes = require("./routes/comments"),
 mongoose.connect("mongodb+srv://lingkai:lingkai@ouschome-vopln.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true});
 //MongoClient.connect({useNewUrlParser: true});
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));git 
 
 //console.log(__dirname+"/public");
 app.set("view engine","ejs");
