@@ -24,8 +24,8 @@
 						<em>Submitted by <%= campground.author.username %></em>
 					</p>
 					<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
-					<a class = "btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-				<form id="deleteForm" action="/campgrounds/<%= campground._id %>?_method=DELETE"  method="POST">
+					<a class = "btn btn-warning" href="/apartments/<%= campground._id %>/edit">Edit</a>
+				<form id="deleteForm" action="/apartments/<%= campground._id %>?_method=DELETE"  method="POST">
 					<button class="btn btn-danger">Delete</button>
 					</form>
 					<% } %>
@@ -34,7 +34,7 @@
 			
 			<div class="well">
 				<div class="text-right">
-					<a class="btn btn-success" href='/campgrounds/<%= campground._id %>/comments/new'>Add new Comment</a>
+					<a class="btn btn-success" href='/apartments/<%= campground._id %>/comments/new'>Add new Comment</a>
 				</div>
 					<hr>
 				<% campground.comments.forEach(function(comment){ %>
@@ -46,8 +46,8 @@
 									 <%= comment.text %>
 								</p>
 							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-							<a class="btn btn-xs btn-warning"						   href="/campgrounds/<%=campground._id%>/comments/<%=comment._id %>/edit">Edit</a>
-<form id="deleteForm" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+							<a class="btn btn-xs btn-warning"						   href="/apartments/<%=campground._id%>/comments/<%=comment._id %>/edit">Edit</a>
+<form id="deleteForm" action="/apartments/<%=campground._id%>/comments/<%=comment._id %>?_method=DELETE" method="POST">
 							
 								<input type="submit" class="btn btn-xs btn-danger" value="Delete">
 							</form>

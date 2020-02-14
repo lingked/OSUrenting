@@ -10,13 +10,13 @@ router.get("/", function(req, res){
 		if(err){
 			console.log(err);
 		} else{
-			res.render("campgrounds/index",{campgrounds: allCampgrounds, currentUser: req.user});
+			res.render("apartments/index",{campgrounds: allCampgrounds, currentUser: req.user});
 		}
 	});
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
-	res.render("campgrounds/new");
+	res.render("apartments/new");
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -36,7 +36,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		if(err){
 			console.log(err);
 		} else{
-			res.redirect("/campgrounds");
+			res.redirect("/apartments");
 		}
 	});
 	// get data from form and add to campgrounds array
@@ -52,7 +52,7 @@ router.get("/:id", function(req, res){
 			console.log(err);
 		} else{
 			console.log(foundCampground);
-			res.render("campgrounds/show", {campground: foundCampground});
+			res.render("apartments/show", {campground: foundCampground});
 		}
 	});
 });
@@ -62,7 +62,7 @@ router.get("/:id/edit", checkCampgroundOnwership, function(req, res){
 	// is user logged in
 
 	Campground.findById(req.params.id,function(err, foundCampground){
-		res.render("campgrounds/edit",{campground: foundCampground});
+		res.render("apartments/edit",{campground: foundCampground});
 	});
 		//otherwise, redirect
 });
@@ -73,9 +73,9 @@ router.put("/:id", function(req, res){
 	
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err,updatedCampground){
 		if(err){
-			res.redirect("/campgrounds");
+			res.redirect("/apartments");
 		} else{
-			res.redirect("/campgrounds/" + req.params.id);
+			res.redirect("/apartments/" + req.params.id);
 		}
 	});
 	// redirect somewhere
@@ -85,9 +85,9 @@ router.put("/:id", function(req, res){
 router.delete("/:id", function(req, res){
 	Campground.findByIdAndRemove(req.params.id, function(err){
 		if(err){
-			res.redirect("/campgrounds");
+			res.redirect("/apartments");
 		} else{
-			res.redirect("/campgrounds");
+			res.redirect("/apartments");
 		}
 	});
 });
