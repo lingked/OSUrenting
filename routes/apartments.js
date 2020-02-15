@@ -38,6 +38,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		if(err){
 			console.log(err);
 		} else{
+			console.log(newlyCreated);
 			res.redirect("/apartments");
 		}
 	});
