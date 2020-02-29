@@ -60,11 +60,17 @@ router.get("/:id", function(req, res){
 	});
 });
 
+// FIND ROOMMATE PAGE
+
+router.get("/:id/roommate", function(req, res){
+	res.render("apartments/roommate");
+});
+
 // EDIT APARTMENT ROUTE
 router.get("/:id/edit", checkApartmentOnwership, function(req, res){
 	// is user logged in
 
-	A.findById(req.params.id,function(err, foundApartment){
+	Apartment.findById(req.params.id,function(err, foundApartment){
 		res.render("apartments/edit",{apartment: foundApartment});
 	});
 		//otherwise, redirect
