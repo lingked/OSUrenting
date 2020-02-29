@@ -1,19 +1,19 @@
 var express = require("express");
 var router = express.Router();
-var Campground = require("../models/campground");
+var Apartment = require("../models/apartment");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
 //Comments new
 
 router.get("/apartments/:id/comments/new", middleware.isLoggedIn, function(req, res){
-	// find campground by id
-	Campground.findById(req.params.id, function(err, campground){
+	// find apartment by id
+	Apartment.findById(req.params.id, function(err, apartment){
 		if(err){
 			console.log(err);
 		} else{
-			console.log(campground);
-			res.render("comments/new", {campground: campground});
+			console.log(apartment);
+			res.render("comments/new", {apartment: apartment});
 			
 		}
 	});
@@ -23,8 +23,8 @@ router.get("/apartments/:id/comments/new", middleware.isLoggedIn, function(req, 
 //Comments create
 
 router.post("/apartments/:id/comments", middleware.isLoggedIn, function(req, res){
-	//lookup campground using ID
-	Campground.findById(req.params.id, function(err, campground){
+	//lookup apartment using ID
+	Apartment.findById(req.params.id, function(err, apartment){
 		if(err){
 			console.log(err);
 			res.redirect("/apartments");
@@ -40,10 +40,10 @@ router.post("/apartments/:id/comments", middleware.isLoggedIn, function(req, res
 					console.log(comment.author.username);
 					//save comment
 					comment.save();
-					campground.comments.push(comment);
-					campground.save();
+					apartment.comments.push(comment);
+					apartment.save();
 					req.flash("sucess", "Successfully add a comment!");
-					res.redirect('/apartments/' + campground._id);
+					res.redirect('/apartments/' + apartment._id);
 				}
 			});
 			//console.log(req.body.comment);
@@ -58,14 +58,14 @@ router.get("/apartments/:id/comments/:comment_id/edit", checkCommentOnwership, f
 		if(err){
 			res.redirect("back");
 		} else{
-			res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+			res.render("comments/edit", {apartment_id: req.params.id, comment: foundComment});
 		}
 	});
 	
 });
 
 // comment update
-///campgrounds/:id/comments/:id/
+///apartments/:id/comments/:id/
 router.put("/apartments/:id/comments/:comment_id", function(req, res){
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedcomments){
 		if(err){

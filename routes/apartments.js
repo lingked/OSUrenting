@@ -1,16 +1,16 @@
 var express = require("express");
 var router = express.Router();
-var Campground = require("../models/campground");
+var Apartment = require("../models/apartment");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
 router.get("/", function(req, res){
-	// Get all campgrounds from DB
-	Campground.find({}, function(err, allCampgrounds){
+	// Get all apartments from DB
+	Apartment.find({}, function(err, allApartments){
 		if(err){
 			console.log(err);
 		} else{
-			res.render("apartments/index",{campgrounds: allCampgrounds, currentUser: req.user});
+			res.render("apartments/index",{apartments: allApartments, currentUser: req.user});
 		}
 	});
 });
@@ -31,10 +31,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		id: req.user._id,
 		username: req.user.username
 	}
-	var newCampground={name: name, price: price, image: image, homePage: homePage, map: map, description: description, author: author};
-	//campgrounds.push(newCampground);
-	//Create a new campground and save it to database
-	Campground.create(newCampground, function(err, newlyCreated){
+	var newApartment={name: name, price: price, image: image, homePage: homePage, map: map, description: description, author: author};
+	//apartments.push(newApartment);
+	//Create a new apartment and save it to database
+	Apartment.create(newApartment, function(err, newlyCreated){
 		if(err){
 			console.log(err);
 		} else{
@@ -42,39 +42,39 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 			res.redirect("/apartments");
 		}
 	});
-	// get data from form and add to campgrounds array
+	// get data from form and add to apartments array
 	//redirect to backgraound page
-	//res.redirect("/campgrounds");
+	//res.redirect("/apartments");
 });
 
 
 router.get("/:id", function(req, res){
-	//find the campground with provided ID
-	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+	//find the apartment with provided ID
+	Apartment.findById(req.params.id).populate("comments").exec(function(err, foundApartment){
 		if(err){
 			console.log(err);
 		} else{
-			console.log(foundCampground);
-			res.render("apartments/show", {campground: foundCampground});
+			console.log(foundApartment);
+			res.render("apartments/show", {apartment: foundApartment});
 		}
 	});
 });
 
-// EDIT CAMPGROUND ROUTE
-router.get("/:id/edit", checkCampgroundOnwership, function(req, res){
+// EDIT APARTMENT ROUTE
+router.get("/:id/edit", checkApartmentOnwership, function(req, res){
 	// is user logged in
 
-	Campground.findById(req.params.id,function(err, foundCampground){
-		res.render("apartments/edit",{campground: foundCampground});
+	A.findById(req.params.id,function(err, foundApartment){
+		res.render("apartments/edit",{apartment: foundApartment});
 	});
 		//otherwise, redirect
 });
-// UPDATE CAMPGROUND ROUTE
+// UPDATE APARTMENT ROUTE
 
 router.put("/:id", function(req, res){
-	// find and update the correct campground
+	// find and update the correct apartment
 	
-	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err,updatedCampground){
+	Apartment.findByIdAndUpdate(req.params.id, req.body.Apartment, function(err,updatedApartment){
 		if(err){
 			res.redirect("/apartments");
 		} else{
@@ -84,9 +84,9 @@ router.put("/:id", function(req, res){
 	// redirect somewhere
 });
 
-// DESTROY CAMPGROUND ROUTE
+// DESTROY APARTMENT ROUTE
 router.delete("/:id", function(req, res){
-	Campground.findByIdAndRemove(req.params.id, function(err){
+	Apartment.findByIdAndRemove(req.params.id, function(err){
 		if(err){
 			res.redirect("/apartments");
 		} else{
@@ -98,16 +98,16 @@ router.delete("/:id", function(req, res){
 
 //middleware
 
-function checkCampgroundOnwership(req, res, next){
+function checkApartmentOnwership(req, res, next){
 	if(req.isAuthenticated()){
 		
-		Campground.findById(req.params.id,function(err, foundCampground){
+		Apartment.findById(req.params.id,function(err, foundApartment){
 			if(err){
 				req.flash("error","Not found!");
 				res.redirect("back");
 			} else{
-				// does user own the campground?
-				if(foundCampground.author.id.equals(req.user._id)){
+				// does user own the apartment?
+				if(foundApartment.author.id.equals(req.user._id)){
 					next();
 				} else{
 					req.flash("error", "You don't have permission to do that.");

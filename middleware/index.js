@@ -1,16 +1,16 @@
-var Campground=require("../models/campground");
+var Apartment=require("../models/apartment");
 var Comment=require("../models/comment");
 // all the middleware goes here
 var middlewareObj = {};
 
-middlewareObj.checkCampgroundOwnership = function(req, res, next){
+middlewareObj.checkApartmentOwnership = function(req, res, next){
 	if(req.isAuthenticated()){
-		Campground.findById(req.params.id,function(err, foundCampground){
+		Apartment.findById(req.params.id,function(err, foundApartment){
 			if(err){
 				res.redirect("back");
 			} else{
-				// does user own the campground?
-				if(foundCampground.author.id.equals(req.user._id)){
+				// does user own the apartment?
+				if(foundApartment.author.id.equals(req.user._id)){
 					next();
 				} else{
 					res.redirect("back");

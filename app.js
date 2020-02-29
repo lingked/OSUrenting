@@ -6,7 +6,7 @@ var express = require("express"),
 	passport = require("passport"),
 	methodOverride = require("method-override"),
 	localStrategy = require("passport-local"),
-	Campground = require("./models/campground"),
+	Apartment = require("./models/apartment"),
 	Comment = require("./models/comment"),
 	User = require("./models/user")
 	//seedDB = require("./seeds")
@@ -14,7 +14,7 @@ var express = require("express"),
 // require routes
 
 var	commentRoutes = require("./routes/comments"),
-	campgroundRoutes = require("./routes/apartments"),
+	apartmentRoutes = require("./routes/apartments"),
 	indexRoutes = require("./routes/index")
 	
 
@@ -62,20 +62,20 @@ app.use(function(req, res, next){
 
 app.use(indexRoutes);
 app.use(commentRoutes);
-app.use("/apartments", campgroundRoutes);
+app.use("/apartments", apartmentRoutes);
 
 
 
 /*
-Campground.create(
+Apartment.create(
 	{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg",
 	 description: "This is a huge granite hill, no bashrooms. No water. Beautiful granite."
-	}, function(err, campground){
+	}, function(err, apartment){
 	if(err){
 		console.log(err);
 	} else {
 		console.log("NEWLY CREATED BACKGROUND: ");
-		console.log(campground);
+		console.log(apartment);
 	}
 });
 */
@@ -91,11 +91,11 @@ app.listen(process.env.PORT ||3000, function(){
 
 
 /* 
-campgrounds = [
-		{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/campground-photos/fnqqusfbuyxsyrizknsj.jpg"},
+apartments = [
+		{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/apartment-photos/fnqqusfbuyxsyrizknsj.jpg"},
 		{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg"},
 		{name: "Montain Goots rest", image: "https://www.mountainphotography.com/images/xl/20120826-Campsite-Goats.jpg"},
-	{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/campground-photos/fnqqusfbuyxsyrizknsj.jpg"},
+	{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/apartment-photos/fnqqusfbuyxsyrizknsj.jpg"},
 		{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg"},
 		{name: "Montain Goots rest", image: "https://www.mountainphotography.com/images/xl/20120826-Campsite-Goats.jpg"}
 ];
