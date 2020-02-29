@@ -80,7 +80,7 @@ router.get("/:id/edit", checkApartmentOnwership, function(req, res){
 router.put("/:id", function(req, res){
 	// find and update the correct apartment
 	
-	Apartment.findByIdAndUpdate(req.params.id, req.body.Apartment, function(err,updatedApartment){
+	Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err,updatedApartment){
 		if(err){
 			res.redirect("/apartments");
 		} else{
