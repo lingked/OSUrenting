@@ -37,7 +37,8 @@ router.post("/apartments/:id/comments", middleware.isLoggedIn, function(req, res
 					//add username and id to comment
 					comment.author.id = req.user._id;
 					comment.author.username = req.user.username;
-					console.log(comment.author.username);
+					const currentTime = new Date();
+					comment.time = currentTime.toString().substring(0,24);
 					//save comment
 					comment.save();
 					apartment.comments.push(comment);
