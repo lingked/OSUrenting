@@ -1,7 +1,7 @@
 {
   "name": "v1",
   "version": "1.0.0",
-  "description": "* Add Landing Page * Add Campgrounds Page that lists all campgrounds",
+  "description": "* Add Landing Page * Add Apartments Page that lists all apartments",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
