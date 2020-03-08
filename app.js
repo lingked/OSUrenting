@@ -9,7 +9,6 @@ var express = require("express"),
 	Apartment = require("./models/apartment"),
 	Comment = require("./models/comment"),
 	User = require("./models/user")
-	//seedDB = require("./seeds")
 
 // require routes
 
@@ -24,14 +23,10 @@ mongoose.connect("mongodb+srv://lingkai:lingkai@ouschome-vopln.mongodb.net/test?
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-//console.log(__dirname+"/public");
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-
-//seedDB(); //seed the database
-
 
 
 
@@ -66,21 +61,6 @@ app.use("/apartments", apartmentRoutes);
 
 
 
-/*
-Apartment.create(
-	{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg",
-	 description: "This is a huge granite hill, no bashrooms. No water. Beautiful granite."
-	}, function(err, apartment){
-	if(err){
-		console.log(err);
-	} else {
-		console.log("NEWLY CREATED BACKGROUND: ");
-		console.log(apartment);
-	}
-});
-*/
-
-
 // PASSPORT CONFIGURATION
 
 
@@ -89,14 +69,3 @@ app.listen(process.env.PORT ||3000, function(){
 	console.log("The YelpCamp Server Has Started!");
 });
 
-
-/* 
-apartments = [
-		{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/apartment-photos/fnqqusfbuyxsyrizknsj.jpg"},
-		{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg"},
-		{name: "Montain Goots rest", image: "https://www.mountainphotography.com/images/xl/20120826-Campsite-Goats.jpg"},
-	{name: "Salmon Creek", image: "https://img.hipcamp.com/image/upload/c_fill,f_auto,g_auto,h_960,q_60,w_1440/v1445485223/apartment-photos/fnqqusfbuyxsyrizknsj.jpg"},
-		{name: "Granite Hill", image: "https://media-cdn.tripadvisor.com/media/photo-s/03/ce/e8/97/granite-hill-camping.jpg"},
-		{name: "Montain Goots rest", image: "https://www.mountainphotography.com/images/xl/20120826-Campsite-Goats.jpg"}
-];
-*/
