@@ -32,6 +32,14 @@ app.use(flash());
 
 // PASSPORT CONFIGURATION
 
+app.use(require("express-session")({
+	secret: "No secret",
+	resave: false,
+	saveUninitialized: false
+}));
+
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
