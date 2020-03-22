@@ -32,14 +32,6 @@ app.use(flash());
 
 // PASSPORT CONFIGURATION
 
-app.use(require("express-session")({
-	secret: "Once again Rusty wins cutest dog!",
-	resave: false,
-	saveUninitialized: false
-}));
-
-
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
@@ -66,6 +58,6 @@ app.use("/apartments", apartmentRoutes);
 
 
 app.listen(process.env.PORT ||3000, function(){
-	console.log("The YelpCamp Server Has Started!");
+	console.log("The Server Has Started!");
 });
 
