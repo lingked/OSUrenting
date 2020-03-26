@@ -59,7 +59,7 @@ app.use(function(req, res, next){
 app.use(indexRoutes);
 app.use(commentRoutes);
 app.use("/apartments", apartmentRoutes);
-app.use("/apartments", shareRoutes);
+app.use(shareRoutes);
 
 
 

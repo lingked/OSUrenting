@@ -5,6 +5,8 @@ var shareSchema = mongoose.Schema({
 	text: String,
 	contact: String,
 	time: String,
+	apartmentName: String,
+	apartmentId: String,
 	author: {
 		username: String,
 		id: {

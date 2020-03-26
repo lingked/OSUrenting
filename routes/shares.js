@@ -4,9 +4,21 @@ var Apartment = require("../models/apartment");
 var Share = require("../models/share");
 var middleware = require("../middleware");
 
+// Shares show all
+
+router.get("/shares", function(req, res){
+	Share.find({}, function(err, allShares){
+		if(err){
+			res.redirect("back");
+		} else {
+			res.render("shares/showAll", {shares: allShares});
+		}
+	});
+});
+
 // Shares show
 
-router.get("/:id/shares", function(req, res){
+router.get("/apartments/:id/shares", function(req, res){
 	Apartment.findById(req.params.id).populate("shares").exec(function(err, foundApartment){
 		if(err){
 			res.redirect("back");
@@ -16,14 +28,14 @@ router.get("/:id/shares", function(req, res){
 	});
 });
 
-// Share detail
-router.get("/:id/shares/:share_id/details", function(req, res){
+// Share detail for each apartment
+router.get("/apartments/:id/shares/:share_id/details", function(req, res){
 	Apartment.findById(req.params.id, function(err, foundApartment){
 		if(err){
 			res.redirect("back");
 		} else{
 			Share.findById(req.params.share_id, function(err, foundShare){
-				if(err){s
+				if(err){
 					res.redirect("back");
 				} else {
 					res.render("shares/details", {apartment: foundApartment, share: foundShare});
@@ -35,7 +47,7 @@ router.get("/:id/shares/:share_id/details", function(req, res){
 
 // Shares new
 
-router.get("/:id/shares/new", middleware.isLoggedIn, function(req, res){
+router.get("/apartments/:id/shares/new", middleware.isLoggedIn, function(req, res){
 	// find apartment by id
 	Apartment.findById(req.params.id, function (err, apartment){
 		if(err){
@@ -49,7 +61,7 @@ router.get("/:id/shares/new", middleware.isLoggedIn, function(req, res){
 
 // Shares create
 
-router.post("/:id/shares", middleware.isLoggedIn, function(req, res){
+router.post("/apartments/:id/shares", middleware.isLoggedIn, function(req, res){
 	// find apartment by ID
 	Apartment.findById(req.params.id, function(err, apartment){
 		if(err){
@@ -64,6 +76,8 @@ router.post("/:id/shares", middleware.isLoggedIn, function(req, res){
 					share.author.username = req.user.username;
 					const currentTime = new Date();
 					share.time = currentTime.toString().substring(0,24);
+					share.apartmentName = apartment.name;
+					share.apartmentId = req.params.id;
 					// save share
 					share.save();
 					apartment.shares.push(share);
@@ -77,7 +91,7 @@ router.post("/:id/shares", middleware.isLoggedIn, function(req, res){
 
 // Share edit
 
-router.get("/:id/shares/:share_id/edit", middleware.checkShareOwnership, function(req, res){
+router.get("/apartments/:id/shares/:share_id/edit", middleware.checkShareOwnership, function(req, res){
 	Share.findById(req.params.share_id, function(err, foundShare){
 		if(err){
 			res.redirect("back");
@@ -88,7 +102,7 @@ router.get("/:id/shares/:share_id/edit", middleware.checkShareOwnership, functio
 });
 
 // share update
-router.put("/:id/shares/:share_id", function(req, res){
+router.put("/apartments/:id/shares/:share_id", function(req, res){
 	Share.findByIdAndUpdate(req.params.share_id, req.body.share, function(err, updatedShares){
 		if(err){
 			res.redirect("back");
@@ -100,7 +114,7 @@ router.put("/:id/shares/:share_id", function(req, res){
 
 // Share destroy router
 
-router.delete("/:id/shares/:share_id", middleware.checkShareOwnership, function(req, res){
+router.delete("/apartments/:id/shares/:share_id", middleware.checkShareOwnership, function(req, res){
 	console.log(req.params.share_id);
 	Share.findByIdAndRemove(req.params.share_id, function(err){
 		if(err){
