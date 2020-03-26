@@ -20,6 +20,12 @@ var apartmentSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Comment"
 		}
+	],
+	shares: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Share"
+		}
 	]
 });
 

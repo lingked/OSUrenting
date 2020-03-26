@@ -1,5 +1,6 @@
 var Apartment=require("../models/apartment");
 var Comment=require("../models/comment");
+var Share=require("../models/share");
 // all the middleware goes here
 var middlewareObj = {};
 
@@ -37,6 +38,24 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
 			}
 		});
 	} else{
+		res.redirect("back");
+	}
+}
+
+middlewareObj.checkShareOwnership = function(req, res, next){
+	if(req.isAuthenticated()){
+		Share.findById(req.params.share_id, function(err, foundShare){
+			if(err){
+				res.redirect("back");
+			} else{
+				if(foundShare.author.id.equals(req.user._id)){
+					next();
+				} else {
+					res.redirect("back");
+				}
+			}
+		});
+	} else {
 		res.redirect("back");
 	}
 }

@@ -54,7 +54,7 @@ router.post("/apartments/:id/comments", middleware.isLoggedIn, function(req, res
 });
 
 // comment edit
-router.get("/apartments/:id/comments/:comment_id/edit", checkCommentOnwership, function(req, res){
+router.get("/apartments/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
 	Comment.findById(req.params.comment_id, function(err, foundComment){
 		if(err){
 			res.redirect("back");
@@ -78,7 +78,7 @@ router.put("/apartments/:id/comments/:comment_id", function(req, res){
 });
 
 // COMMENT DESTROY ROUTE
-router.delete("/apartments/:id/comments/:comment_id", checkCommentOnwership, function(req, res){
+router.delete("/apartments/:id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res){
 	Comment.findByIdAndRemove(req.params.comment_id, function(err){
 		if(err){
 			res.redirect("back");
@@ -88,27 +88,6 @@ router.delete("/apartments/:id/comments/:comment_id", checkCommentOnwership, fun
 		}
 	});
 });
-
-function checkCommentOnwership(req, res, next){
-	if(req.isAuthenticated()){
-		Comment.findById(req.params.comment_id,function(err, foundComment){
-			if(err){
-				res.redirect("back");
-			} else{
-				// does user own the comment?
-				if(foundComment.author.id.equals(req.user._id)){
-					next();
-				} else{
-					req.flash("error", "You don't have permisssion to do that");
-					res.redirect("back");
-				}
-			}
-		});
-	} else{
-		req.flash("error", "You need to login first");
-		res.redirect("back");
-	}
-}
 
 
 module.exports = router;

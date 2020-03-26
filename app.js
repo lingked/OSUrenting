@@ -14,7 +14,8 @@ var express = require("express"),
 
 var	commentRoutes = require("./routes/comments"),
 	apartmentRoutes = require("./routes/apartments"),
-	indexRoutes = require("./routes/index")
+	indexRoutes = require("./routes/index"),
+	shareRoutes = require("./routes/shares")
 	
 
 
@@ -58,6 +59,7 @@ app.use(function(req, res, next){
 app.use(indexRoutes);
 app.use(commentRoutes);
 app.use("/apartments", apartmentRoutes);
+app.use("/apartments", shareRoutes);
 
 
 

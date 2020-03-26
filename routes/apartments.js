@@ -60,14 +60,9 @@ router.get("/:id", function(req, res){
 	});
 });
 
-// FIND ROOMMATE PAGE
-
-router.get("/:id/roommate", function(req, res){
-	res.render("apartments/roommate");
-});
 
 // EDIT APARTMENT ROUTE
-router.get("/:id/edit", checkApartmentOnwership, function(req, res){
+router.get("/:id/edit", middleware.checkApartmentOwnership, function(req, res){
 	// is user logged in
 
 	Apartment.findById(req.params.id,function(err, foundApartment){
@@ -100,31 +95,5 @@ router.delete("/:id", function(req, res){
 		}
 	});
 });
-
-
-//middleware
-
-function checkApartmentOnwership(req, res, next){
-	if(req.isAuthenticated()){
-		
-		Apartment.findById(req.params.id,function(err, foundApartment){
-			if(err){
-				req.flash("error","Not found!");
-				res.redirect("back");
-			} else{
-				// does user own the apartment?
-				if(foundApartment.author.id.equals(req.user._id)){
-					next();
-				} else{
-					req.flash("error", "You don't have permission to do that.");
-					res.redirect("back");
-				}
-			}
-		});
-	} else{
-		req.flash("error","You need to be logged in to do it");
-		res.redirect("back");
-	}
-}
 
 module.exports = router;
