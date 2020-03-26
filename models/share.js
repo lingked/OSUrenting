@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var shareSchema = mongoose.Schema({
 	title: String,
 	text: String,
+	contact: String,
 	time: String,
 	author: {
 		username: String,
