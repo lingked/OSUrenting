@@ -1,37 +1,60 @@
 <%- include ("../partials/header") %>
 <div class="well">
-				<div class="text-right">
-					<a class="btn btn-success" href='/apartments/<%= apartment._id %>/shares/new'>Add new Share to <%= apartment.name %></a>
+	
+				<div class="dropdown col-sm-4 center-block">
+				  <button class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					Apartment filter
+					<span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					  <li><a href="/shares"> All apartments</a></li>
+					<% apartments.forEach(function(apart){ %>
+						<li><a href="/apartments/<%=apart._id%>/shares"><%= apart.name %></a></li>
+					<% }) %>
+				  </ul>
 				</div>
-					
-				<div>
-					<h1>
-						<% apartment.name %>
-					</h1>
-					<% apartment.shares.forEach(function(share){ %>
-						<div class="row">
-							<div class="col-md-12">
+	
+	
+				<div class="text-right">
+					<a class="btn btn-success" href='/apartments/<%= apartment._id %>//shares/new'>Add new Share to <%= apartment.name %></a>
+				</div>
+				<div class="text-right">
+					<a href='/apartments/<%= apartment._id %>'>Back to <%= apartment.name %></a>
+				</div>
+	
+				<table class="table tb">
+				<thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Apartment</th>
+						<th scope="col">UserName</th>
+						<th scope="col">Time</th>
+						<th></th>
+						
+					</tr>
+				</thead>	
+				<tbody>
+						<% apartment.shares.forEach(function(share){ %>
+						<tr>
+							<td><a href="/apartments/<%= share.apartmentId %>/shares/<%= share._id %>/details"> <%= share.title %> </a></td>
+								<td><%= share.apartmentName %></td>
+								<td><%= share.author.username %></td>
+								<td><%= share.time %></td>
+							<% if(currentUser && share.author.id.equals(currentUser._id)){ %>	
+								<td>
+								<a class="btn btn-xs btn-warning fm" href="/apartments/<%=apartment._id%>/shares/<%=share._id %>/edit" >Edit</a>
+								<form id="deleteForm" class="fm" action="/apartments/<%=apartment._id%>/shares/<%=share._id %>?_method=DELETE" method="POST">
 
-									<span class="pull-right"><%= share.time %></span>
-								<% if(currentUser && share.author.id.equals(currentUser._id)){ %>
-								
-									<a class="btn btn-xs btn-warning" href="/apartments/<%=apartment._id%>/shares/<%=share._id %>/edit">Edit</a>
-									<form id="deleteForm" action="/apartments/<%=apartment._id%>/shares/<%=share._id %>?_method=DELETE" method="POST">
-
-										<input type="submit" class="btn btn-xs btn-danger" value="Delete">
-									</form>	
-								
-								<% } %>
-							
-									<p>
-										 <a class="navbar-nav" href="/apartments/<%= apartment._id %>/shares/<%= share._id %>/details"><%= share.title %></a>
-									</p>
-
-							</div>
-						</div>	
+									<input type="submit" class="btn btn-xs btn-danger" value="Delete">
+								</form>
+								</td>
+							<% } %>
+						</tr>
 
 					<% }) %>
-				</div>
+				</tbody>
+			</table>
+	
 </div>
 
 <%- include ("../partials/footer") %>

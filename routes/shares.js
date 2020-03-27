@@ -7,25 +7,31 @@ var middleware = require("../middleware");
 // Shares show all
 
 router.get("/shares", function(req, res){
-	Share.find({}, function(err, allShares){
-		if(err){
-			res.redirect("back");
-		} else {
-			res.render("shares/showAll", {shares: allShares});
-		}
+	Apartment.find({}, function(err, allApartments){
+		Share.find({}, function(err, allShares){
+			if(err){
+				res.redirect("back");
+			} else {
+				res.render("shares/showAll", {shares: allShares, apartments: allApartments});
+			}
+		});
 	});
 });
 
 // Shares show
 
 router.get("/apartments/:id/shares", function(req, res){
-	Apartment.findById(req.params.id).populate("shares").exec(function(err, foundApartment){
-		if(err){
-			res.redirect("back");
-		} else {
-			res.render("shares/show", {apartment: foundApartment, currentUser: req.user});
-		}
+	Apartment.find({}, function(err, allApartments){
+		if(err) res.redirect("back");
+		Apartment.findById(req.params.id).populate("shares").exec(function(err, foundApartment){
+			if(err){
+				res.redirect("back");
+			} else {
+				res.render("shares/show", {apartments: allApartments, apartment: foundApartment, currentUser: req.user});
+			}
+		});
 	});
+	
 });
 
 // Share detail for each apartment

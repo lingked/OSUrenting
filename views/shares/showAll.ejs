@@ -1,14 +1,37 @@
 <%- include ("../partials/header") %>
-<div class = "col-sm-4 center-block">
-	<a type="button" class= "btn btn-success btn-sm" href="/apartments">
-		Choose an apartment to add a share
-	</a>
+
+<div class = "col-sm-12">
+	<div>
+		<div class = "col-sm-4 center-block pull-left">
+			<a type="button" class= "btn btn-success btn-md" href="/apartments">
+				Choose an apartment to add a share
+			</a>
+		</div>
+	</div>
+
+
+	<div class="dropdown col-sm-4 center-block">
+	  <button class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Apartment filter
+		<span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		  <li><a href="/shares"> All apartments</a></li>
+		<% apartments.forEach(function(apartment){ %>
+			<li><a href="apartments/<%= apartment._id %>/shares"><%= apartment.name %></a></li>
+		<% }) %>
+	  </ul>
+	</div>
+	
 </div>
 
-	<table class="table">
+
+
+	<table class="table tb">
 		<thead>
 			<tr>
 				<th scope="col">Title</th>
+				<th scope="col">Apartment</th>
 				<th scope="col">UserName</th>
 				<th scope="col">Time</th>
 			</tr>
@@ -18,7 +41,7 @@
 
 				<tr>
 				  	<td><a href="/apartments/<%= share.apartmentId %>/shares/<%= share._id %>/details"> <%= share.title %> </a></td>
-					
+					<td><%= share.apartmentName %></td>
 					<td><%= share.author.username %></td>
 					<td><%= share.time %></td>
 				</tr>
