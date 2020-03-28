@@ -31,7 +31,9 @@ var upload = multer({
 
 router.get("/shares", function(req, res){
 	Apartment.find({}, function(err, allApartments){
+		
 		Share.find({}, function(err, allShares){
+			Array.prototype.reverse.call(allShares);
 			if(err){
 				res.redirect("back");
 			} else {
@@ -47,6 +49,7 @@ router.get("/apartments/:id/shares", function(req, res){
 	Apartment.find({}, function(err, allApartments){
 		if(err) res.redirect("back");
 		Apartment.findById(req.params.id).populate("shares").exec(function(err, foundApartment){
+			Array.prototype.reverse.call(foundApartment.shares);
 			if(err){
 				res.redirect("back");
 			} else {
