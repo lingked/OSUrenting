@@ -48,7 +48,7 @@ router.post("/login", passport.authenticate("local",
 		successRedirect: "/apartments",
 		failureRedirect: "/login"
 	}), function(req, res){
-	 w
+	
 });
 
 // logout route

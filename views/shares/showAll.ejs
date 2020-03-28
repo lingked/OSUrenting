@@ -9,24 +9,25 @@
 		</div>
 	</div>
 
-
+<div>
 	<div class="dropdown col-sm-4 center-block">
-	  <button class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Apartment filter
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		  <li><a href="/shares"> All apartments</a></li>
-		<% apartments.forEach(function(apartment){ %>
-			<li><a href="apartments/<%= apartment._id %>/shares"><%= apartment.name %></a></li>
-		<% }) %>
-	  </ul>
+		  <button class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			Apartment filter
+			<span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			  <li><a href="/shares"> All apartments</a></li>
+			<% apartments.forEach(function(apartment){ %>
+				<li><a href="apartments/<%= apartment._id %>/shares"><%= apartment.name %></a></li>
+			<% }) %>
+		  </ul>
+		</div>
 	</div>
-	
 </div>
+	
 
 
-
+<div class="box">
 	<table class="table tb">
 		<thead>
 			<tr>
@@ -49,7 +50,7 @@
 			<% }) %>
 		</tbody>
 	</table>
-
+</div>
 
 
 

@@ -1,3 +1,39 @@
+body{
+	background-image: url("../bg1.jpg");
+}
+
+body .box {
+	background: white;
+	opacity: 0.7;
+	margin-top: 40px;
+}
+
+.pic {
+	background-image: url("https://lh3.googleusercontent.com/proxy/Sr2LGSo4Au5d8_URqvICCW9eKNFuQFMOlX3Ja0HoS6mLLuwEVwHTcQD3fNrqobvH989ZQeC4MGSvcwcOtxBksvPjHmCmhuY");
+	background-size: contain;
+	background-position: center;
+}
+
+.container-form {
+	background: white;
+	position: absolute;
+	top: 43%;
+  	left: 50%;
+	border-radius: 5px;
+	padding: 1rem;
+	text-align:center;
+	width: 50rem;
+	transform: translate(-50%, -50%);
+}
+.navbar-inverse{
+	background: rgb(0, 0, 0);
+	opacity: 0.6;
+}
+
+.anchor {
+	color: grey;
+}
+
 .thumbnail img {
 	width: 100%;
 }
@@ -25,4 +61,25 @@
 
 .fm {
 	display: inline;
+}
+
+.myBtn {
+	background-color:#f9f9f9;
+	border-radius:28px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:17px;
+	padding:9px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myBtn:hover {
+	background-color:#e9e9e9;
+}
+.myBtn:active {
+	position:relative;
+	top:1px;
 }

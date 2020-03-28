@@ -1,5 +1,4 @@
 <%- include ("../partials/header") %>
-<div class="well">
 	
 				<div class="dropdown col-sm-4 center-block">
 				  <button class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -16,12 +15,12 @@
 	
 	
 				<div class="text-right">
-					<a class="btn btn-success" href='/apartments/<%= apartment._id %>//shares/new'>Add new Share to <%= apartment.name %></a>
+					<a class="btn btn-success" href='/apartments/<%= apartment._id %>/shares/new'>Add new Share to <%= apartment.name %></a>
 				</div>
 				<div class="text-right">
-					<a href='/apartments/<%= apartment._id %>'>Back to <%= apartment.name %></a>
+					<a class="anchor" href='/apartments/<%= apartment._id %>'>Back to <%= apartment.name %></a>
 				</div>
-	
+<div class="box">	
 				<table class="table tb">
 				<thead>
 					<tr>

@@ -7,6 +7,10 @@ var shareSchema = mongoose.Schema({
 	time: String,
 	apartmentName: String,
 	apartmentId: String,
+	image: {
+		type:[String],
+		length: 3
+	},
 	author: {
 		username: String,
 		id: {

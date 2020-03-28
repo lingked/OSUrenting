@@ -3,6 +3,29 @@ var router = express.Router();
 var Apartment = require("../models/apartment");
 var Share = require("../models/share");
 var middleware = require("../middleware");
+var multer = require("multer");
+var path = require("path");
+
+
+let id = 0;
+
+var storage = multer.diskStorage({
+	destination: './public/photos/',
+	filename: function(req, file, cb){
+		
+		cb(null, file.fieldname + new Date().toISOString()+ id +
+		  path.extname(file.originalname));
+		id++;
+		id==3? 0:id;
+	}
+});
+
+var upload = multer({
+	storage: storage, 
+	limit: {
+		fileSize: 1024 * 1024 * 5
+	}
+}).array('myImage',3);
 
 // Shares show all
 
@@ -69,26 +92,38 @@ router.get("/apartments/:id/shares/new", middleware.isLoggedIn, function(req, re
 
 router.post("/apartments/:id/shares", middleware.isLoggedIn, function(req, res){
 	// find apartment by ID
-	Apartment.findById(req.params.id, function(err, apartment){
-		if(err){
+	upload(req, res, function(err){
+		if(err instanceof multer.MulterError){
 			res.render("back");
-		} else {
-			Share.create(req.body.share, function(err, share){
+		} else{
+			Apartment.findById(req.params.id, function(err, apartment){
 				if(err){
 					res.render("back");
 				} else {
-					// add username and id to share
-					share.author.id = req.user._id;
-					share.author.username = req.user.username;
-					const currentTime = new Date();
-					share.time = currentTime.toString().substring(0,24);
-					share.apartmentName = apartment.name;
-					share.apartmentId = req.params.id;
-					// save share
-					share.save();
-					apartment.shares.push(share);
-					apartment.save();
-					res.redirect("/apartments/"+req.params.id+"/shares");
+					Share.create(req.body.share, function(err, share){
+						if(err){
+							res.render("back");
+						} else {
+							// add username and id to share
+							share.author.id = req.user._id;
+							share.author.username = req.user.username;
+							const currentTime = new Date();
+							share.time = currentTime.toString().substring(0,24);
+							share.apartmentName = apartment.name;
+							share.apartmentId = req.params.id;
+							//console.log(req);
+							req.files.forEach(function(file){
+								share.image.push(file.path);
+							});
+
+							// console.log(share.image[0]);
+							// save share
+							share.save();
+							apartment.shares.push(share);
+							apartment.save();
+							res.redirect("/apartments/"+req.params.id+"/shares");
+						}
+					});
 				}
 			});
 		}
@@ -119,7 +154,6 @@ router.put("/apartments/:id/shares/:share_id", function(req, res){
 });
 
 // Share destroy router
-
 router.delete("/apartments/:id/shares/:share_id", middleware.checkShareOwnership, function(req, res){
 	console.log(req.params.share_id);
 	Share.findByIdAndRemove(req.params.share_id, function(err){

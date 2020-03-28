@@ -1,15 +1,53 @@
-<%- include ("../partials/header") %>
+<%- include ("../partials/images") %>
 
 <div class="container">
   <div class="row">
-    <div class="col-12 text-center"><h1><%= share.title %></h1></div>
+    <div class="text-center"><h1><%= share.title %></h1></div>
 	  <br>
 	  <br>
-    <div class="col-12"><p><%= share.text %></p></div>
+	  
+	<div class="text-center"><p><%= share.text %></p></div>
 	  <br>
-	<div class="col-12"><p>Contact: <%= share.contact %></p></div>
+	<div class="text-center"><p>Contact: <%= share.contact %></p></div>
   </div>
+	
+	<div class="deploy">
+		<div style="text-align:center">
+		  <h3>Photos provided in this apartment</h3>
+		  <p>Click on the images below to see big picture:</p>
+		</div>
+
+		<!-- The four columns -->
+		<row class="row">
+			<% share.image.forEach(function(url){ %>
+				<column class="column">
+					<img class="img" src="/<%= url %>" onclick="myFunction(this);">
+				</column>
+			<% }) %>
+		</row>
+	</div>
+	
+		<div class="container">
+		  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+		  <img id="expandedImg">
+		  <div id="imgtext"></div>
+		</div>
+	
+	
 </div>
-<a class="btn btn-sm" href='/apartments/<%= apartment._id %>/shares'>Renting information of this apartment</a>
-<a class="btn btn-sm" href='/shares'>All renting information</a>
+<a class="btn btn-md" href='/apartments/<%= apartment._id %>/shares'>Renting information of this apartment</a>
+<a class="btn btn-" href='/shares'>All renting information</a>
+
+<br>
+<br>
+
+<script>
+	function myFunction(imgs) {
+	  var expandImg = document.getElementById("expandedImg");
+	  var imgText = document.getElementById("imgtext");
+	  expandImg.src = imgs.src;
+	  imgText.innerHTML = imgs.alt;
+	  expandImg.parentElement.style.display = "block";
+	}
+</script>
 <%- include ("../partials/footer") %>

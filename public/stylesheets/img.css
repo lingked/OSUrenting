@@ -1,0 +1,53 @@
+/* The grid: Four equal columns that floats next to each other */
+body{
+	background-image: url("https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/5300690/2976/1984/m1/fpnw/wm0/light-grey-background-.jpg?1541109596&s=100424620c8c323575d23992f1d7cad5");
+    background-size: cover;
+    height: 100vh;
+    justify-content: center;
+    width: 100vw;
+}
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+.img {
+	display:inline; margin:5px; height:180px; width:240px;
+}
+
+#expandedImg {
+	margin:5px;
+	width: 75%;
+	height: 75%;
+	text-align: center;
+	
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container (positioning is needed to position the close button and the text) */
+.container {
+  position: relative;
+  display: center;
+  overflow-wrap:break-word;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
