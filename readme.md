@@ -16,3 +16,6 @@ Each Apartment has:
 * Location
 * Roommates finding module
 * Share information from users including text and images
+
+--------------------------------------------------------------------
+Some files are confidential due to personal information
