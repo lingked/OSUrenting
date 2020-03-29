@@ -15,3 +15,4 @@ Each Apartment has:
 * Links to its homePage
 * Location
 * Roommates finding module
+* Share information from users including text and images
