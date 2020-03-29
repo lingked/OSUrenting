@@ -18,4 +18,4 @@ Each Apartment has:
 * Share information from users including text and images
 
 --------------------------------------------------------------------
-Some files are confidential due to personal information
+Some files are confidential due to private information
