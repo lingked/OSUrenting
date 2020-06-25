@@ -18,10 +18,6 @@ var	commentRoutes = require("./routes/comments"),
 	shareRoutes = require("./routes/shares")
 	
 
-
-mongoose.connect("mongodb+srv://lingkai:lingkai@ouschome-vopln.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true});
-//MongoClient.connect({useNewUrlParser: true});
-
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("view engine","ejs");
